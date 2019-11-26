@@ -46,7 +46,7 @@ const streetHundredSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  startPoint: pointSchema,
+  referencePoint: pointSchema,
   odd: addressFeatureCollection,
   even: addressFeatureCollection,
 });
