@@ -1,8 +1,8 @@
 const appRoot = require('app-root-path');
+const mongoose = require('mongoose');
 
-const mongoose = require(`${appRoot}/databases/us-database`);
-const pointSchema = require(`${appRoot}/models/schemas/point-schema`);
-const lineStringSchema = require(`${appRoot}/models/schemas/line-string-schema`);
+const pointSchema = require(`${appRoot}/schemas/point-schema`);
+const lineStringSchema = require(`${appRoot}/schemas/line-string-schema`);
 
 const addressFeature = {
   type: {
@@ -12,7 +12,6 @@ const addressFeature = {
   },
   geometry: pointSchema,
   properties: {
-    required: true,
     number: {
       type: Number,
       required: true,
@@ -47,10 +46,8 @@ const streetHundredSchema = new mongoose.Schema({
     required: true,
   },
   referencePoint: pointSchema,
-  odd: addressFeatureCollection,
-  even: addressFeatureCollection,
+  odd: blockSchema,
+  even: blockSchema,
 });
 
-const StreetHundred = mongoose.model('Hundred', streetHundredSchema);
-
-module.exports = StreetHundred;
+module.exports = streetHundredSchema;
