@@ -2,10 +2,10 @@ const fs = require('fs');
 const _ = require('lodash');
 const csv = require('csv-parser');
 
-
 class CSVParser {
 
   constructor(filePath){
+    this.filePath = filePath;
     this.addressData = {};
   }
 
@@ -15,11 +15,13 @@ class CSVParser {
 
       fs.createReadStream(this.filePath)
         .pipe(csv())
-        .on('data', onData)
-        .on('end', resolve);
+        .on('data', this.onData)
+        .on('end', () => resolve(this.addressData));
 
     });
 
   }
 
 }
+
+module.exports = CSVParser;

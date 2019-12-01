@@ -16,6 +16,7 @@
     "mongoose": "^5.7.12"
   },
   "devDependencies": {
-    "chai": "^4.2.0"
+    "chai": "^4.2.0",
+    "chai-asserttype": "^1.0.5"
   }
 }
