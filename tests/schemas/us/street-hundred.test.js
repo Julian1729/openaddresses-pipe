@@ -10,7 +10,7 @@ describe('Street Hundred Schema', () => {
   let db = null;
   before( async () => {
     // connect to db
-    db = await usDatabase();
+    db = await usDatabase.init('pa');
   })
 
   it('should create model with schema', async () => {

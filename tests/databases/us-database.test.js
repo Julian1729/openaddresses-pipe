@@ -1,6 +1,10 @@
 const appRoot = require('app-root-path');
 const mongoose = require('mongoose');
-const {expect} = require('chai');
+const chai = require('chai');
+const sinon = require('sinon');
+const sinonChai = require('sinon-chai');
+chai.expect();
+chai.use(sinonChai);
 
 const usDatabase = require(`${appRoot}/databases/us-database`);
 
@@ -10,22 +14,15 @@ const testSchema = new mongoose.Schema({
 
 describe('US Database', () => {
 
-  let db = null;
-  let TestModel = null;
-  before(async () => {
+  it('builds correct db string', (done) => {
 
-    db = await usDatabase();
-
-    TestModel = db.model('TestModel', testSchema);
-
-  });
-
-  it('should connect to db and insert test doc', async () => {
-
-    expect(db).to.exist;
-    const testDoc = new TestModel({name: 'Julian'});
-    await testDoc.save();
-    expect(testDoc).to.have.property('_id');
+    sinon.stub(usDatabase.mongoose, 'connect');
+    usDatabase.init('pa')
+      .then(() => {
+        expect(usDatabase.mongoose.connect).to.have.been.calledOnceWith('`mongodb://localhost/US-PA');
+      })
+      .catch(e => done(e));
+    done()
 
   });
 

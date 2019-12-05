@@ -8,7 +8,7 @@ const USParser = require(`${appRoot}/parsers/USParser`);
 
 describe('US Parser', () => {
 
-  const testCSV = `${appRoot}/tests/fixtures/us/csv-directory/philadelphia.csv`;
+  const testCSV = `${appRoot}/tests/fixtures/us/csv-directory/pa/philadelphia.csv`;
 
   // it('should log row', (done) => {
   //

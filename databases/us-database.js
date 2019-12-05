@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
-module.exports = () => new Promise((resolve, reject) => {
+const init = state => new Promise((resolve, reject) => {
 
   mongoose.Promise = global.Promise;
 
-  mongoose.connect('mongodb://localhost/US-PA', {useNewUrlParser: true, useUnifiedTopology: true});
+  mongoose.connect(`mongodb://localhost/US-${state.toUpperCase()}`, {useNewUrlParser: true, useUnifiedTopology: true});
 
   mongoose.connection.on('connected', function(){
-      console.log('Mongoose default connection is open');
+      console.log(`Connected to US-${state.toUpperCase()}`);
       resolve(mongoose);
   });
 
@@ -27,3 +27,5 @@ module.exports = () => new Promise((resolve, reject) => {
   });
 
 });
+
+module.exports = {mongoose, init};

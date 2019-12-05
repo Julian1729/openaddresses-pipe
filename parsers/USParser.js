@@ -46,6 +46,8 @@ class USParser extends CSVParser {
 
     // find street
     let streetName = row.STREET;
+    // skip if empty street name
+    if(_.isEmpty(streetName)) return;
     let streetRecord = this.addressData[streetName];
     if(!streetRecord){
       // create street object
@@ -53,7 +55,11 @@ class USParser extends CSVParser {
     }
 
     // find hundred
+    // skip if empty number
+    if(_.isEmpty(row.NUMBER)) return;
     const hundredNumber = this._calcHundred(row.NUMBER);
+    // skip if not a number
+    if(isNaN(hundredNumber)) return;
     let hundredRecord = streetRecord[hundredNumber];
     if(!hundredRecord){
       // create hundred record
