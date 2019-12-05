@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const logUpdate = require('log-update');
 const appRoot = require('app-root-path');
 
 const CSVParser = require(`${appRoot}/parsers/CSVParser`);
@@ -89,6 +90,7 @@ class USParser extends CSVParser {
    */
   sort(){
 
+    let progressCounter = 0;
     for (const street in this.addressData) {
       if (this.addressData.hasOwnProperty(street)) {
         const streetData = this.addressData[street];
@@ -137,6 +139,7 @@ class USParser extends CSVParser {
             hundredDoc.referencePoint.coordinates = [parseFloat(firstAddress.lng), parseFloat(firstAddress.lat)];
 
             addresses.forEach(address => {
+              logUpdate(`Sorting ${progressCounter}`);
               // add address number to data object
               const number = parseInt(address[0]);
               const data = address[1];
@@ -158,6 +161,8 @@ class USParser extends CSVParser {
               hundredDoc[oddEven].addresses.features.push(addressObj);
               // add to block line string
               hundredDoc[oddEven].path.coordinates.push([longitude, latitude]);
+              // increase progressCounter for log
+              progressCounter++;
             });
 
             this.hundreds.push(hundredDoc);

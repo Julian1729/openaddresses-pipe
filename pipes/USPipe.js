@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const path = require('path');
 const fs = require('fs').promises;
+const logUpdate = require('log-update');
 const appRoot = require('app-root-path');
 
 const USParser = require(`${appRoot}/parsers/USParser`);
@@ -132,7 +133,9 @@ class USPipe {
         await parser.parse();
         parser.sort();
         // console.log( JSON.stringify(parser.hundreds, null, 2) );
+        logUpdate(`Inserting ${parser.hundreds.length}`);
         let {length : insertedDocCount} = await this._insertDocs(parser.hundreds, cityModel);
+        logUpdate.done();
         summary[stateAbbreviation].documents += insertedDocCount;
         summary[stateAbbreviation].cities.push(this._normalizeCityName(cityName));
       }
