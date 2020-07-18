@@ -11,7 +11,7 @@
   "dependencies": {
     "app-root-path": "^3.0.0",
     "csv-parser": "^2.3.2",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "log-update": "^3.3.0",
     "mongodb": "^3.3.4",
     "mongoose": "^5.7.12",
